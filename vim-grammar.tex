@@ -1,0 +1,288 @@
+\documentclass{beamer}
+
+    \usepackage[utf8]{inputenc}
+    \usepackage[T1]{fontenc}
+    \usepackage[french]{babel}
+    \usepackage{url}
+
+    \newcommand\dev{\textbf{\footnotesize{[DEV]}}}
+
+    \usetheme{Singapore}
+
+    \title[Vim Grammar]{Vim Grammar}
+    \author{Rompez la solitude de votre éditeur : parlez lui !}
+    \institute{Mathieu (matael) Gaborit | HAUM}
+    \date{2012}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{Au Menu}
+\tableofcontents
+\end{frame}
+
+\section{Vi-quoi ?}
+\subsection{}
+\frame{\tableofcontents[currentsection]}
+
+\begin{frame}
+\frametitle{Vi-quoi ?}
+\begin{center}
+vim
+\end{center}
+\pause{}
+
+{\bf  Caractéristiques} 
+\begin{itemize}
+    \item prononcer {\it vi-aïe-me}
+    \item éditeur de texte modal
+    \item hautement personalisable
+    \item scriptable
+    \item prévu pour la console
+\end{itemize}
+
+\pause{}
+{\bf Signe particulier} 
+\pause
+\begin{center}
+Fait peur aux débutants
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Pourquoi fait il peur ?}
+{\bf On lui reproche}
+\pause{}
+\begin{itemize}
+    \item raccourcis obscurs
+    \item manque d'intuitivité du mode "Normal" (commande)
+    \item sa vie en console
+\end{itemize}
+
+\pause{}
+
+{\bf Pourtant...}
+\pause{}
+\begin{itemize}
+    \item peu gourmand en ressources
+    \item possibilité de le lancer en mode {\it client-serveur}
+    \item capacité d'extension énorme
+\end{itemize}
+
+\pause{}
+{\bf Solution pour l'apprentissage}
+\pause{}
+\begin{center}
+Faire de la grammaire !
+\end{center}
+
+\end{frame}
+
+\section{Grammaire}
+\frame{\tableofcontents[currentsection]}
+\subsection{Anatomie d'une commande}
+\frame{\tableofcontents[currentsubsection]}
+
+
+\begin{frame}
+\frametitle{Anatomie d'une commande}
+\begin{center}
+    \Large{<nombre><verbe><modificateur><nom>}
+
+    \Large{<nombre><verbe><mouvement>}
+\end{center}
+\pause{}
+\begin{description}[<+->]
+    \item[nombre] combien de fois faut il répeter la commande ?
+    \item[verbe] Que veut on faire ?
+    \item[modificateur] Modifie le comportement du nom
+    \item[nom] Sur quoi veut on agir ?
+    \item[mouvement] Jusqu'où agir ?
+\end{description}
+\end{frame}
+
+\subsection{Verbes, Mouvements, Noms, Modificateurs}
+\frame{\tableofcontents[currentsubsection]}
+
+\begin{frame}
+\frametitle{Verbes}
+
+Quelle action cherche-t-on à réaliser ?
+\pause{}
+\begin{description}[<+->]
+    \item[c] Changer la zone voulue
+    \item[y] Copier la zone voulue ({\it yank})
+    \item[v] Sélectioner la zone (passage en mode {\bf v}isuel)
+    \item[d] Détruire la zone ({\it delete})
+\end{description}
+    
+\end{frame}
+
+\begin{frame}
+\frametitle{Mouvements}
+
+Jusqu'où veut on agir ?
+\pause{}
+\begin{description}[<+->]
+    \item h/j/k/l (gauche/bas/haut/droite)
+    \item[\$] fin de la ligne (cf {\it regexps})
+    \item[\^{}] début de la ligne (cf {\it regexps })
+    \item[gg/G] début/fin de fichier 
+    \item[/regexp] travaille jusqu'a matcher la {\it regexp} (vers l'avant)
+    \item[?regexp] travaille jusqu'a matcher la {\it regexp} (vers l'arrière)
+\end{description}
+    
+\end{frame}
+
+\begin{frame}
+\frametitle{Noms}
+
+Sur quoi veut on agir ?
+\pause{}
+\begin{description}[<+->]
+    \item[w] un mot ({\it word})
+    \item[s] une phrase ({\it sentence })
+    \item[p] un paragraph 
+    \item[b] un bloc/un groupe de parenthèses
+    \item[t] une balise (XML/HTML)
+\end{description}
+    
+\end{frame}
+
+\begin{frame}
+\frametitle{Modificateurs}
+
+Modification des noms...
+\pause{}
+\begin{description}[<+->]
+    \item[i] {\it inside} (travaille {\it dans} l'objet)
+    \item[a] travaille autour de l'objet ({\it around})
+    \item[t] travaille jusqu'a l'objet ({\it till})
+    \item[f] comme {\it t} mais en incluant l'objet
+\end{description}
+
+\end{frame}
+
+\subsection{Exemples}
+\frame{\tableofcontents[currentsubsection]}
+
+\begin{frame}
+\begin{center}
+2dw ou d2w
+\pause{}
+
+Supprimer ({\bf d}) {\bf 2} mots ({\bf w})
+\pause{}
+
+va"
+\pause{}
+
+Sélectionner visuellement ({\bf v}) autour ({\bf a}) des guillemets ({\bf "})
+\pause{}
+
+ci\{
+\pause{}
+
+Changer ({\bf c}) à l'intérieur ({\bf i}) des accolades ({\bf \{})
+\pause{}
+
+da]
+\pause{}
+
+Supprimer ({\bf d}) autour ({\bf a}) des crochets ({\bf ]})
+\pause{}
+
+c\$
+\pause{}
+
+Changer ({\bf c}) jusqu'en fin de ligne ({\bf \$})
+\pause{}
+
+v4k
+\pause{}
+
+Sélectionner visuellement ({\bf v}) {\bf 4} lignes vers le haut ({\bf k})
+\pause{}
+
+vap:s/a/b/g (plus dur hein ?!)
+\pause{}
+
+Sélectionner visuellement ({\bf v}) autour ({\bf a}) du paragraphe ({\bf p}) puis ({\bf :} = mode commande) remplacer tous les {\it a} par des {\it b} ({\bf s/a/b/g})
+\end{center}
+\end{frame}
+
+\section{Encore !}
+\subsection{}
+\frame{\tableofcontents[currentsection]}
+
+\begin{frame}
+\frametitle{Etendre la grammaire}
+
+Vim est {\bf scriptable} et il y a {\bf plein de plugins} :
+
+\begin{center}
+Possibilité de rajouter des verbes/noms à la grammaire
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Exemple de nouveau verbe : {\it surround}}
+
+Entoure avec quelque chose ({\it S}).
+
+Disponible à : \url{https://github.com/tpope/vim-surround}
+
+\pause{}
+\begin{center}
+    vipS(
+    \pause{}
+
+    (Sélectionner le paragraphe et l'entourer de parenthèses)
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Exemple de nouveau verbe : {\it go Comment}}
+
+Commenter quelque chose ({\it gc})
+
+Disponible à : \url{https://github.com/tomtom/tcomment_vim}
+\pause{}
+
+\begin{center}
+    gc/\}
+    \pause{}
+
+    (commenter jusqu'à la prochaine accolade fermante)
+\end{center}
+    
+\end{frame}
+
+\section{Remerciements}
+\subsection{}
+\frame{\tableofcontents[currentsection]}
+
+\begin{frame}
+\frametitle{Remerciements}
+
+Merci à/au :
+
+\begin{itemize}
+    \item HAUM pour l'accueil
+    \item tous les blogers ayant écrit là dessus et particulièrement :
+    \begin{itemize}
+        \item Yan Pritzker (\url{http://yanpritzker.com})
+        \item Jamie Curle (\url{http://jamiecurle.co.uk})
+        \item Jared Carroll (\url{http://blog.carbonfive.com})
+    \end{itemize}
+    \item Bram Moolenaar pour avoir écrit vim et Bill Joy pour vi
+    \item vous pour l'écoute
+\end{itemize}
+\end{frame}
+
+\end{document}
