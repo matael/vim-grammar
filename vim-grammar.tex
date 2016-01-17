@@ -5,14 +5,17 @@
     \usepackage[french]{babel}
     \usepackage{url}
 
+		\usepackage{graphicx}
+
     \newcommand\dev{\textbf{\footnotesize{[DEV]}}}
 
-    \usetheme{Singapore}
+    %\usetheme{Singapore}
+		\usetheme[progressbar=frametitle]{m}
 
     \title[Vim Grammar]{Vim Grammar}
     \author{Rompez la solitude de votre éditeur : parlez lui !}
-    \institute{Mathieu (matael) Gaborit | HAUM}
-    \date{2012}
+    \institute{Mathieu (matael) Gaborit --- HAUM}
+    \date{2015}
 
 \begin{document}
 
@@ -40,8 +43,7 @@ vim
 \begin{itemize}
     \item prononcer {\it vi-aïe-me}
     \item éditeur de texte modal
-    \item hautement personalisable
-    \item scriptable
+    \item hautement personalisable/scriptable
     \item prévu pour la console
 \end{itemize}
 
@@ -49,7 +51,7 @@ vim
 {\bf Signe particulier} 
 \pause
 \begin{center}
-Fait peur aux débutants
+	\alert{Fait peur aux débutants}
 \end{center}
 \end{frame}
 
@@ -77,7 +79,8 @@ Fait peur aux débutants
 {\bf Solution pour l'apprentissage}
 \pause{}
 \begin{center}
-Faire de la grammaire !
+Faire de la grammaire !\\
+\scriptsize{...Et désactiver les flèches.}
 \end{center}
 
 \end{frame}
@@ -91,13 +94,13 @@ Faire de la grammaire !
 \begin{frame}
 \frametitle{Anatomie d'une commande}
 \begin{center}
-    \Large{<nombre><verbe><modificateur><nom>}
+    \Large{<répétition><verbe><modificateur><nom>}
 
-    \Large{<nombre><verbe><mouvement>}
+    \Large{<répétition><verbe><mouvement>}
 \end{center}
 \pause{}
 \begin{description}[<+->]
-    \item[nombre] combien de fois faut il répeter la commande ?
+    \item[nombre] Combien de fois faut il répeter la commande ?
     \item[verbe] Que veut on faire ?
     \item[modificateur] Modifie le comportement du nom
     \item[nom] Sur quoi veut on agir ?
@@ -114,10 +117,11 @@ Faire de la grammaire !
 Quelle action cherche-t-on à réaliser ?
 \pause{}
 \begin{description}[<+->]
-    \item[c] Changer la zone voulue
-    \item[y] Copier la zone voulue ({\it yank})
-    \item[v] Sélectioner la zone (passage en mode {\bf v}isuel)
-    \item[d] Détruire la zone ({\it delete})
+    \item[c] Changer
+    \item[y] Copier ({\it yank})
+    \item[v] Sélectioner (passage en mode {\bf v}isuel)
+    \item[d] Supprimer ({\it delete})
+		\item[g] Action globale
 \end{description}
     
 \end{frame}
@@ -128,12 +132,13 @@ Quelle action cherche-t-on à réaliser ?
 Jusqu'où veut on agir ?
 \pause{}
 \begin{description}[<+->]
-    \item h/j/k/l (gauche/bas/haut/droite)
+    \item[h/j/k/l] (gauche/bas/haut/droite, à combiner avec un chiffre)
+		\item[b/w] un mot en arrière/en avant ({\it beginning/word})
     \item[\$] fin de la ligne (cf {\it regexps})
     \item[\^{}] début de la ligne (cf {\it regexps })
     \item[gg/G] début/fin de fichier 
-    \item[/regexp] travaille jusqu'a matcher la {\it regexp} (vers l'avant)
-    \item[?regexp] travaille jusqu'a matcher la {\it regexp} (vers l'arrière)
+    \item[/regexp] jusqu'a matcher la {\it regexp} (vers l'avant)
+    \item[?regexp] jusqu'a matcher la {\it regexp} (vers l'arrière)
 \end{description}
     
 \end{frame}
@@ -145,10 +150,9 @@ Sur quoi veut on agir ?
 \pause{}
 \begin{description}[<+->]
     \item[w] un mot ({\it word})
-    \item[s] une phrase ({\it sentence })
-    \item[p] un paragraph 
+    \item[p] un paragraphe
     \item[b] un bloc/un groupe de parenthèses
-    \item[t] une balise (XML/HTML)
+		\item[t] une balise (XML/HTML seulement, {\it tag})
 \end{description}
     
 \end{frame}
@@ -160,7 +164,7 @@ Modification des noms...
 \pause{}
 \begin{description}[<+->]
     \item[i] {\it inside} (travaille {\it dans} l'objet)
-    \item[a] travaille autour de l'objet ({\it around})
+    \item[a] travaille autour de l'objet ({\it around}, prend une espace en plus)
     \item[t] travaille jusqu'a l'objet ({\it till})
     \item[f] comme {\it t} mais en incluant l'objet
 \end{description}
@@ -170,48 +174,58 @@ Modification des noms...
 \subsection{Exemples}
 \frame{\tableofcontents[currentsubsection]}
 
-\begin{frame}
+\begin{frame}{Exemples}
 \begin{center}
-2dw ou d2w
+\alert{2dw ou d2w}
+
+\pause{}
+Supprimer (\alert{d}) \alert{2} mots (\alert{w})
+
 \pause{}
 
-Supprimer ({\bf d}) {\bf 2} mots ({\bf w})
+\alert{va"}
+
+\pause{}
+Sélectionner visuellement (\alert{v}) autour (\alert{a}) des guillemets (\alert{"})
+
 \pause{}
 
-va"
+\alert{ci\{}
+
+\pause{}
+Changer (\alert{c}) à l'intérieur (\alert{i}) des accolades (\alert{\{})
+
+\end{center}
+\end{frame}
+
+\begin{frame}{Exemples}
+\begin{center}
+
+\alert{da]}
+
+\pause{}
+Supprimer (\alert{d}) autour (\alert{a}) des crochets (\alert{]})
+
 \pause{}
 
-Sélectionner visuellement ({\bf v}) autour ({\bf a}) des guillemets ({\bf "})
+\alert{c\$}
+
+\pause{}
+Changer (\alert{c}) jusqu'en fin de ligne (\alert{\$})
+
 \pause{}
 
-ci\{
+\alert{v4k}
+
+\pause{}
+Sélectionner visuellement (\alert{v}) \alert{4} lignes vers le haut (\alert{k})
+
 \pause{}
 
-Changer ({\bf c}) à l'intérieur ({\bf i}) des accolades ({\bf \{})
-\pause{}
+\alert{vap:s/a/b/g (plus dur hein ?!)}
 
-da]
 \pause{}
-
-Supprimer ({\bf d}) autour ({\bf a}) des crochets ({\bf ]})
-\pause{}
-
-c\$
-\pause{}
-
-Changer ({\bf c}) jusqu'en fin de ligne ({\bf \$})
-\pause{}
-
-v4k
-\pause{}
-
-Sélectionner visuellement ({\bf v}) {\bf 4} lignes vers le haut ({\bf k})
-\pause{}
-
-vap:s/a/b/g (plus dur hein ?!)
-\pause{}
-
-Sélectionner visuellement ({\bf v}) autour ({\bf a}) du paragraphe ({\bf p}) puis ({\bf :} = mode commande) remplacer tous les {\it a} par des {\it b} ({\bf s/a/b/g})
+Sélectionner visuellement (\alert{v}) autour (\alert{a}) du paragraphe (\alert{p}) puis (\alert{:} = mode commande) remplacer tous les {\it a} par des {\it b} (\alert{s/a/b/g})
 \end{center}
 \end{frame}
 
@@ -222,7 +236,7 @@ Sélectionner visuellement ({\bf v}) autour ({\bf a}) du paragraphe ({\bf p}) pu
 \begin{frame}
 \frametitle{Etendre la grammaire}
 
-Vim est {\bf scriptable} et il y a {\bf plein de plugins} :
+Vim est \alert{scriptable} et il y a \alert{plein de plugins} :
 
 \begin{center}
 Possibilité de rajouter des verbes/noms à la grammaire
@@ -232,7 +246,7 @@ Possibilité de rajouter des verbes/noms à la grammaire
 \begin{frame}
 \frametitle{Exemple de nouveau verbe : {\it surround}}
 
-Entoure avec quelque chose ({\it S}).
+Entoure avec quelque chose (\alert{S}).
 
 Disponible à : \url{https://github.com/tpope/vim-surround}
 
@@ -249,13 +263,13 @@ Disponible à : \url{https://github.com/tpope/vim-surround}
 \begin{frame}
 \frametitle{Exemple de nouveau verbe : {\it go Comment}}
 
-Commenter quelque chose ({\it gc})
+Commenter quelque chose (\alert{gc})
 
 Disponible à : \url{https://github.com/tomtom/tcomment_vim}
 \pause{}
 
 \begin{center}
-    gc/\}
+		\alert{gc/\}}
     \pause{}
 
     (commenter jusqu'à la prochaine accolade fermante)
@@ -270,30 +284,26 @@ Disponible à : \url{https://github.com/tomtom/tcomment_vim}
 \begin{frame}
 \frametitle{Remerciements}
 
-Merci à/au :
+{\bf Merci à }
 
 \begin{itemize}
-    \item HAUM pour l'accueil
-    \item tous les blogers ayant écrit là dessus et particulièrement :
+    \item Tous les bloggers ayant écrit là dessus et particulièrement :
     \begin{itemize}
-        \item Yan Pritzker (\url{http://yanpritzker.com})
-        \item Jamie Curle (\url{http://jamiecurle.co.uk})
-        \item Jared Carroll (\url{http://blog.carbonfive.com})
+				\item \alert{Yan Pritzker} (\url{yanpritzker.com})
+				\item \alert{Jamie Curle} (\url{jamiecurle.co.uk})
+        \item \alert{Jared Carroll} (\url{blog.carbonfive.com})
     \end{itemize}
-    \item Bram Moolenaar pour avoir écrit vim et Bill Joy pour vi
-    \item vous pour l'écoute
+		\item \alert{Bram Moolenaar} pour avoir écrit vim et \alert{Bill Joy} pour vi
+		\item \alert{Vincent Jousse} pour son livre \alert{Vim pour les Humains} (\url{vimebook.com})
 \end{itemize}
 
 {\bf Licence}
 
 \begin{center}
-    Distribué sous licence
-
-    Licence Creative Commons Paternité
-    
-    (Partage à l'Identique 3.0 non transposé)
-
+    Distribué sous licence CC-By-SA
     \url{http://creativecommons.org/licenses/by-sa/3.0/}
+
+		\includegraphics[height=.5cm]{cc-by-sa.png}
 \end{center}
 \end{frame}
 
